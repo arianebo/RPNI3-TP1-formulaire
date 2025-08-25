@@ -1,0 +1,23 @@
+{
+  "name": "bohemiera_tp1_formulaire",
+  "version": "1.0.0",
+  "description": "Package",
+  "main": "index.js",
+  "scripts": {
+    "watch": "sass --watch src/scss:public/css",
+    "build": "sass src/scss:public/css --style=expanded --source-map"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arianebo/RPNI3-TP1-formulaire.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arianebo/RPNI3-TP1-formulaire/issues"
+  },
+  "homepage": "https://github.com/arianebo/RPNI3-TP1-formulaire#readme",
+  "devDependencies": {
+    "normalize.scss": "^0.1.0"
+  }
+}

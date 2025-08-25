@@ -31,7 +31,7 @@
 /** LIBRAIRIES **/
 
 /* Normalize */
-// @use "../../node_modules/normalize.scss/normalize.scss";
+@use "../../node_modules/normalize.scss/normalize.scss";
 
 /** UTILITAIRES **/
 @use "utilitaires/variables";
