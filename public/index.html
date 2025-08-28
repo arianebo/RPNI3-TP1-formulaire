@@ -16,11 +16,13 @@
     <form action="merci.html" method="get">
         <fieldset>
             <legend>Don</legend>
-            <h2>Type de don</h2>
-            <input type="radio" id="unique" name="type" value="unique" checked>
-            <label for="unique">Don unique</label>
-            <input type="radio" id="mensuel" name="type" value="mensuel">
-            <label for="mensuel">Don mensuel</label>
+            <section>
+                <h2>Type de don</h2>
+                <input type="radio" id="unique" name="type" value="unique" checked>
+                <label for="unique">Don unique</label>
+                <input type="radio" id="mensuel" name="type" value="mensuel">
+                <label for="mensuel">Don mensuel</label>
+            </section>
 
             <div class="unique">
                 <input type="radio" id="unique25" name="montantUnique" value="25">
@@ -32,7 +34,7 @@
                 <input type="radio" id="unique100" name="montantUnique" value="100">
                 <label for="100">100 $</label>
                 <span>Pour éliminer <b>20 livres</b> de déchets</span>
-                <input type="radio" id="autre" name="montantUnique" value="autre">
+                <input type="radio" id="uniqueAutre" name="montantUnique" value="autre">
                 <label for="autre">Autre montant</label>
                 <input type="number" id="uniqueAutreMontant" placeholder="Entrer le montant">
 
@@ -49,7 +51,7 @@
                 <input type="radio" id="mensuel20" name="montantMensuel" value="20">
                 <label for="20">20 $</label>
                 <span>Pour éliminer <b>4 livres</b> de déchets par mois</span>
-                <input type="radio" id="autre" name="montantMensuel" value="autre">
+                <input type="radio" id="mensuelAutre" name="montantMensuel" value="autre">
                 <label for="autre">Autre montant</label>
                 <input type="number" id="mensuelAutreMontant" placeholder="Entrer le montant">
 
@@ -61,59 +63,68 @@
 
         <fieldset>
             <legend>Informations</legend>
-            <h2>Ce don est...</h2>
-            <input type="radio" id="personnel" name="typeDon" value="personnel" checked>
-            <label for="personnel">Personnel</label>
-            <input type="radio" id="entreprise" name="typeDon" value="entreprise">
-            <label for="entreprise">Pour une entreprise</label>
+            <section>
+                <h2>Ce don est...</h2>
+                <input type="radio" id="personnel" name="typeDon" value="personnel" checked>
+                <label for="personnel">Personnel</label>
+                <input type="radio" id="entreprise" name="typeDon" value="entreprise">
+                <label for="entreprise">Pour une entreprise</label>
+            </section>
 
             <div class="infos">
                 <div class="entreprise">
-                    <p>Nom de l'entreprise</p>
+                    <label for="nomEntreprise">Nom de l'entreprise</label>
                     <input type="text" id="nomEntreprise" name="nomEntreprise" placeholder="Nom de l'entreprise">
                     <span class="messageErreur"></span>
                 </div>
 
-                <p>Nom</p>
+                <label for="nom">Nom</label>
                 <input type="text" id="nom" name="nom" placeholder="Nom">
                 <span class="messageErreur"></span>
-                <p>Prénom</p>
+
+                <label for="prenom">Prénom</label>
                 <input type="text" id="prenom" name="prenom" placeholder="Prénom">
                 <span class="messageErreur"></span>
-                <p>Courriel</p>
+
+                <label for="courriel">Courriel</label>
                 <input type="email" id="courriel" name="courriel" placeholder="Courriel">
                 <span class="messageErreur"></span>
 
-                <h2>Adresse</h2>
-                <p>Adresse municipale</p>
-                <input type="text" id="adresse" name="adresse" placeholder="Adresse municipale">
-                <span class="messageErreur"></span>
-                <p>Ville</p>
-                <input type="text" id="ville" name="ville" placeholder="Ville">
-                <span class="messageErreur"></span>
-                <p>Province</p>
-                <input list="provinces" placeholder="Province">
-                <datalist id="provinces">
-                    <option value="Alberta">
-                    <option value="Colombie-Britannique">
-                    <option value="Île-du-Prince-Édouard">
-                    <option value="Manitoba">
-                    <option value="Nouveau-Brunswick">
-                    <option value="Nouvelle-Écosse">
-                    <option value="Nunavut">
-                    <option value="Ontario">
-                    <option value="Québec">
-                    <option value="Saskatchewan">
-                    <option value="Terre-Neuve-et-Labrador">
-                    <option value="Territoires du Nord-Ouest">
-                    <option value="Yukon">
-                </datalist>
-                <!-- <input type="text" id="province" name="province" placeholder="Province"> -->
-                <span class="messageErreur"></span>
-                <p>Pays</p>
+                <section>
+                    <h2>Adresse</h2>
+                    <label for="adresse">Adresse municipale</label>
+                    <input type="text" id="adresse" name="adresse" placeholder="Adresse municipale">
+                    <span class="messageErreur"></span>
+    
+                    <label for="ville">Ville</label>
+                    <input type="text" id="ville" name="ville" placeholder="Ville">
+                    <span class="messageErreur"></span>
+                    
+                    <label for="provinces">Province</label>
+                    <input list="provinces" placeholder="Province">
+                    <datalist id="provinces">
+                        <option value="Alberta">
+                        <option value="Colombie-Britannique">
+                        <option value="Île-du-Prince-Édouard">
+                        <option value="Manitoba">
+                        <option value="Nouveau-Brunswick">
+                        <option value="Nouvelle-Écosse">
+                        <option value="Nunavut">
+                        <option value="Ontario">
+                        <option value="Québec">
+                        <option value="Saskatchewan">
+                        <option value="Terre-Neuve-et-Labrador">
+                        <option value="Territoires du Nord-Ouest">
+                        <option value="Yukon">
+                    </datalist>
+                    <span class="messageErreur"></span>
+                </section>
+
+                <label for="pays">Pays</label>
                 <input type="text" id="pays" name="pays" placeholder="Pays">
                 <span class="messageErreur"></span>
-                <p>Code postal</p>
+
+                <label for="codePostal">Code postal</label>
                 <input type="text" id="codePostal" name="codePostal" placeholder="Code postal">
                 <span class="messageErreur"></span>
             </div>
@@ -124,17 +135,20 @@
 
         <fieldset>
             <legend>Paiement</legend>
-            <p>Nom du titulaire de la carte</p>
+            <label for="titulaire">Nom du titulaire de la carte</label>
             <input type="text" name="titulaire" id="titulaire" placeholder="Nom">
             <span class="messageErreur"></span>
-            <p>Numéro de carte</p>
-            <input type="password" name="carte" id="carte" placeholder="Numéro de carte">
+
+            <label for="carte">Numéro de carte</label>
+            <input type="password" name="carte" id="carte" placeholder="Numéro de carte" inputmode="numeric" maxlength="16">
             <span class="messageErreur"></span>
-            <p>Date d'expiration</p>
-            <input type="text" name="expiration" id="expiration" placeholder="MM/AA">
+
+            <label for="expiration">Expiration</label>
+            <input type="month" name="expiration" id="expiration" placeholder="MM/AA">
             <span class="messageErreur"></span>
-            <p>CVC</p>
-            <input type="text" name="cvc" id="cvc" placeholder="CVC">
+
+            <label for="cvc">CVC</label>
+            <input type="text" name="cvc" id="cvc" placeholder="CVC" maxlength="4">
             <span class="messageErreur"></span>
 
             <button class="btnPrecedent">Précédent</button>
