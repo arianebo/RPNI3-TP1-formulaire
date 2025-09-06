@@ -5,6 +5,7 @@
     <meta charset="utf-8">
 
     <link rel="stylesheet" href="css/styles.css">
+    <script defer src="js/scripts.js"></script>
 </head>
 
 <header>
@@ -13,8 +14,31 @@
 
 <body>
     <h1>Formulaire de don</h1>
-    <form action="merci.html" method="get">
-        <fieldset>
+    <nav aria-label="Étapes du formulaire de don">
+        <ol>
+            <li>
+                <a href="#">
+                    <span class="hors-ecran">Étape 1</span>
+                    Don
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="hors-ecran">Étape 2</span>
+                    Informations
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="hors-ecran">Étape 3</span>
+                    Paiement
+                </a>
+            </li>
+        </ol>
+    </nav>
+
+    <form action="merci.html" method="get" id="formulaire">
+        <fieldset id="etape1">
             <legend>Don</legend>
             <section>
                 <h2>Type de don</h2>
@@ -38,7 +62,7 @@
                 <label for="autre">Autre montant</label>
                 <input type="number" id="uniqueAutreMontant" placeholder="Entrer le montant">
 
-                <span class="messageErreur"></span>
+                <span class="messageErreur" aria-live="polite"></span>
             </div>
 
             <div class="mensuel">
@@ -55,13 +79,13 @@
                 <label for="autre">Autre montant</label>
                 <input type="number" id="mensuelAutreMontant" placeholder="Entrer le montant">
 
-                <span class="messageErreur"></span>
+                <span class="messageErreur" aria-live="polite"></span>
             </div>
 
-            <button class="btnSuivant">Suivant</button>
+            <button type="button" class="btnSuivant">Suivant</button>
         </fieldset>
 
-        <fieldset>
+        <fieldset id="etape2">
             <legend>Informations</legend>
             <section>
                 <h2>Ce don est...</h2>
@@ -74,34 +98,34 @@
             <div class="infos">
                 <div class="entreprise">
                     <label for="nomEntreprise">Nom de l'entreprise</label>
-                    <input type="text" id="nomEntreprise" name="nomEntreprise" placeholder="Nom de l'entreprise">
-                    <span class="messageErreur"></span>
+                    <input type="text" id="nomEntreprise" name="nomEntreprise" placeholder="Nom de l'entreprise" pattern="^[a-zA-ZÀ-ÿ]+$" required>
+                    <span class="messageErreur" aria-live="polite"></span>
                 </div>
 
                 <label for="nom">Nom</label>
-                <input type="text" id="nom" name="nom" placeholder="Nom">
-                <span class="messageErreur"></span>
+                <input type="text" id="nom" name="nom" placeholder="Nom" pattern="^[a-zA-ZÀ-ÿ]+$" autocomplete="given-name" required>
+                <span class="messageErreur" id="erreur-nom" aria-live="polite"></span>
 
                 <label for="prenom">Prénom</label>
-                <input type="text" id="prenom" name="prenom" placeholder="Prénom">
-                <span class="messageErreur"></span>
+                <input type="text" id="prenom" name="prenom" placeholder="Prénom" pattern="^[a-zA-ZÀ-ÿ]+$" autocomplete="family-name" required>
+                <span class="messageErreur" id="erreur-prenom" aria-live="polite"></span>
 
                 <label for="courriel">Courriel</label>
-                <input type="email" id="courriel" name="courriel" placeholder="Courriel">
-                <span class="messageErreur"></span>
+                <input type="email" id="courriel" name="courriel" placeholder="Courriel" pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" autocomplete="email" required>
+                <span class="messageErreur" id="erreur-courriel" aria-live="polite"></span>
 
                 <section>
                     <h2>Adresse</h2>
                     <label for="adresse">Adresse municipale</label>
-                    <input type="text" id="adresse" name="adresse" placeholder="Adresse municipale">
-                    <span class="messageErreur"></span>
+                    <input type="text" id="adresse" name="adresse" placeholder="Adresse municipale" pattern="^[0-9]+[a-zA-ZÀ-ÿ0-9 \-]+$" autocomplete="address-line1" required>
+                    <span class="messageErreur" id="erreur-adresse" aria-live="polite"></span>
     
                     <label for="ville">Ville</label>
-                    <input type="text" id="ville" name="ville" placeholder="Ville">
-                    <span class="messageErreur"></span>
+                    <input type="text" id="ville" name="ville" placeholder="Ville" pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$" required>
+                    <span class="messageErreur" id="erreur-ville" aria-live="polite"></span>
                     
                     <label for="provinces">Province</label>
-                    <input list="provinces" placeholder="Province">
+                    <input list="provinces" placeholder="Province" required>
                     <datalist id="provinces">
                         <option value="Alberta">
                         <option value="Colombie-Britannique">
@@ -117,41 +141,41 @@
                         <option value="Territoires du Nord-Ouest">
                         <option value="Yukon">
                     </datalist>
-                    <span class="messageErreur"></span>
+                    <span class="messageErreur" id="erreur-province" aria-live="polite"></span>
                 </section>
 
                 <label for="pays">Pays</label>
-                <input type="text" id="pays" name="pays" placeholder="Pays">
-                <span class="messageErreur"></span>
+                <input type="text" id="pays" name="pays" placeholder="Pays" pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$" autocomplete="country-name" required>
+                <span class="messageErreur" id="erreur-pays" aria-live="polite"></span>
 
                 <label for="codePostal">Code postal</label>
-                <input type="text" id="codePostal" name="codePostal" placeholder="Code postal">
-                <span class="messageErreur"></span>
+                <input type="text" id="codePostal" name="codePostal" placeholder="Code postal" pattern="^[a-zA-Z][0-9][a-zA-Z] [0-9][a-zA-Z][0-9]$" autocomplete="postal-code" required>
+                <span class="messageErreur" id="erreur-codePostal" aria-live="polite"></span>
             </div>
 
-            <button class="btnPrecedent">Précédent</button>
-            <button class="btnSuivant">Suivant</button>
+            <button type="button" class="btnPrecedent">Précédent</button>
+            <button type="button" class="btnSuivant">Suivant</button>
         </fieldset>
 
-        <fieldset>
+        <fieldset id="etape3">
             <legend>Paiement</legend>
             <label for="titulaire">Nom du titulaire de la carte</label>
-            <input type="text" name="titulaire" id="titulaire" placeholder="Nom">
-            <span class="messageErreur"></span>
+            <input type="text" name="titulaire" id="titulaire" placeholder="Nom" autocomplete="cc-name" required>
+            <span class="messageErreur" aria-live="polite"></span>
 
             <label for="carte">Numéro de carte</label>
-            <input type="password" name="carte" id="carte" placeholder="Numéro de carte" inputmode="numeric" maxlength="16">
-            <span class="messageErreur"></span>
+            <input type="password" name="carte" id="carte" placeholder="Numéro de carte" inputmode="numeric" maxlength="16" pattern="^[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}$" autocomplete="cc-number" required>
+            <span class="messageErreur" aria-live="polite"></span>
 
             <label for="expiration">Expiration</label>
-            <input type="month" name="expiration" id="expiration" placeholder="MM/AA">
-            <span class="messageErreur"></span>
+            <input type="month" name="expiration" id="expiration" placeholder="MM/AA" autocomplete="cc-exp" required>
+            <span class="messageErreur" aria-live="polite"></span>
 
             <label for="cvc">CVC</label>
-            <input type="text" name="cvc" id="cvc" placeholder="CVC" maxlength="4">
-            <span class="messageErreur"></span>
+            <input type="text" name="cvc" id="cvc" placeholder="CVC" maxlength="4" autocomplete="cc-csc" required>
+            <span class="messageErreur" aria-live="polite"></span>
 
-            <button class="btnPrecedent">Précédent</button>
+            <button type="button" class="btnPrecedent">Précédent</button>
             <input type="submit" class="btnSuivant" value="Payer un don de X $">
             <input type="submit" class="btnSuivant" value="Payer un don de X $ par mois">
         </fieldset>

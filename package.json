@@ -4,8 +4,8 @@
   "description": "Package",
   "main": "index.js",
   "scripts": {
-    "watch": "sass --watch src/scss:public/css",
-    "build": "sass src/scss:public/css --style=expanded --source-map"
+    "watch": "concurrently \"sass src/scss:public/css --source-map --watch\" \"tsc --watch\"",
+    "build": "concurrently \"sass src/scss:public/css --style=expanded --source-map\" \"tsc\""
   },
   "repository": {
     "type": "git",
@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/arianebo/RPNI3-TP1-formulaire#readme",
   "devDependencies": {
-    "normalize.scss": "^0.1.0"
+    "concurrently": "^9.2.1",
+    "normalize.scss": "^0.1.0",
+    "typescript": "^5.9.2"
   }
 }

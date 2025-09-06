@@ -44,4 +44,10 @@
 @use "base/grille";
 
 /** MODULES **/
+.cacher{
+    display: none;
+}
 
+.messageErreur{
+    color: rgb(179, 5, 5);
+}
