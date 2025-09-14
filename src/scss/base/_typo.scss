@@ -56,7 +56,8 @@ h1,
 }
 
 h2,
-.titreNiveau2{
+.section__titre{
+  font-family: variables.$fontePrimaire;
   font-size: 20px;
   font-size: 2rem;
   text-transform: uppercase;
@@ -67,7 +68,8 @@ h2,
 }
 
 h3,
-.titreNiveau3 {
+.sousSection__titre {
+  font-family: variables.$fonteSecondaire;
   font-size: 18px;
   font-size: 1.8rem;
   &--desktop {

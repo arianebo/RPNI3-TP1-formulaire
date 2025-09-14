@@ -1,0 +1,9 @@
+@use "../utilitaires/variables";
+
+.cacher{
+    display: none;
+}
+
+.messageErreur{
+    color: variables.$erreur;
+}

@@ -9,30 +9,32 @@
 */
 
 /** Polices de caractères **/
+@import url('https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
 
 @font-face {
   font-family: Futura, sans-serif;
   src: 	url('../fonts/Futura.ttc') format('truetype');
 }
 
-$fontePrimaire : Futura, sans-serif;
-$fonteSecondaire : Arial, sans-serif;
+$fontePrimaire : 'Passion One', sans-serif;
+$fonteSecondaire : Onest, sans-serif;
 
 /** Palette de couleurs **/
 // Utiliser http://chir.ag/projects/name-that-color pour obtenir des noms uniques et mémorisables
 // Permettez-vous d'utiliser un nom de variable plus explicite si la suggestion de name-that-color est trop étrange
 
 /* Couleurs de base */
-$bleuMoyen: #358ae0;
-$bleuPale: #68a8e8;
-$vertLime: #bbd531;
-$bleuMinuit: #012d61;
-$bleuMarin: #2678B5;
+$bleuMoyen: #3A5A9E;
+$bleuFonce: #143653;
+$bleuPale: #C3D9E7;
+$interactivite: #6CCDE1;
+$erreur: #CA0000;
 
 $bleuMoyenTransparent : color.adjust($bleuMoyen, $alpha: -0.50);
 
 /* Autres couleurs */
-$hyperlien: $bleuMarin;
+$hyperlien: $bleuFonce;
 
 /** Points de rupture **/
 $desktop : 601px;

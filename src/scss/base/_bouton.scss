@@ -7,7 +7,7 @@
 */
 
 .bouton {
-  background-color: variables.$vertLime;
+  background-color: variables.$bleuMoyen;
   border-radius: 18px;
   color: black;
   padding: 0.5em 1em;
@@ -17,19 +17,19 @@
     margin-left: 0.4em;
   }
   &--hover {
-    background-color: color.adjust(variables.$vertLime, $alpha: -0.25);
+    background-color: color.adjust(variables.$bleuPale, $alpha: -0.25);
   }
   &--active {
-    background-color: color.adjust(variables.$vertLime, $alpha: -0.5);
+    background-color: color.adjust(variables.$bleuPale, $alpha: -0.5);
   }
   &--inverse {
     background-color: white;
-    border: 2px solid variables.$vertLime;
+    border: 2px solid variables.$bleuFonce;
     &--hover {
-      border-color: color.adjust(variables.$vertLime, $alpha: -0.25);
+      border-color: color.adjust(variables.$bleuFonce, $alpha: -0.25);
     }
     &--active {
-      border-color: color.adjust(variables.$vertLime, $alpha: -0.5);
+      border-color: color.adjust(variables.$bleuFonce, $alpha: -0.5);
     }
   }
 }

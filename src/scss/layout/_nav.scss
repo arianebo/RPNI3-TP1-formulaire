@@ -1,0 +1,10 @@
+.navigation {
+    &__liste {
+        display: flex;
+        flex-direction: row;
+        
+        &Item {
+            margin-right: 40px;
+        }
+    }
+}

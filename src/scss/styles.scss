@@ -42,12 +42,11 @@
 @use "base/hyperlien";
 @use "base/typo";
 @use "base/grille";
+@use "base/utilitaires";
+
+/** LAYOUT **/
+@use "layout/main";
+@use "layout/nav";
 
 /** MODULES **/
-.cacher{
-    display: none;
-}
-
-.messageErreur{
-    color: rgb(179, 5, 5);
-}
+@use "modules/sousSection.scss";

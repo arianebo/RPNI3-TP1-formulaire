@@ -9,7 +9,9 @@
     },
     "courriel": {
         "vide": "Veuillez entrer votre adresse courriel.",
-        "pattern": "Assurez-vous d'entrer une adresse courriel valide."
+        "pattern": "Assurez-vous d'entrer une adresse courriel valide.",
+        "tldSuspicieux": "Attention certains domaines sont interdits.",
+        "erreursCommunes": "Voulez-vous dire {domaine}?"
     },
     "sujet": {
         "vide": "Veuillez entrer un sujet.",
@@ -51,5 +53,8 @@
     "cvc": {
         "vide": "Veuillez entrer un CVC.",
         "pattern": "Le CVC doit contenir 3 ou 4 chiffres."
+    },
+    "btnDonUnique": {
+        "vide": "Veuillez sélectionner une option."
     }
 }

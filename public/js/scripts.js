@@ -9,34 +9,36 @@ const arrBoutonsPrecedents = document.querySelectorAll('.btnPrecedent');
 const etape1 = document.getElementById('etape1');
 const etape2 = document.getElementById('etape2');
 const etape3 = document.getElementById('etape3');
-const refBtnDonUnique = document.getElementById('unique');
-const refBtnDonMensuel = document.getElementById('mensuel');
+const refBtnDonUnique = document.getElementById('btnUnique');
+const refBtnDonMensuel = document.getElementById('btnMensuel');
 const refFormulaire = document.getElementById('formulaire');
+const refChampEmail = document.getElementById('courriel');
 let messagesErreur = [];
-refBtnDonUnique?.addEventListener('click', changerTypeDon);
-refBtnDonMensuel?.addEventListener('click', changerTypeDon);
-arrBoutonsSuivants.forEach((element) => {
-    element.addEventListener('click', naviguerSuivant);
-});
-arrBoutonsPrecedents.forEach((element) => {
-    element.addEventListener('click', naviguerPrecedent);
-});
-refFormulaire.addEventListener('submit', verifierSubmit);
 function initialiser() {
     cacherFieldsets();
     etape1?.classList.remove('cacher');
-    document.querySelector('.mensuel')?.classList.add('cacher');
+    document.querySelector('#mensuel')?.classList.add('cacher');
     refFormulaire.noValidate = true;
     obtenirMessages();
+    refBtnDonUnique?.addEventListener('click', changerTypeDon);
+    refBtnDonMensuel?.addEventListener('click', changerTypeDon);
+    arrBoutonsSuivants.forEach((element) => {
+        element.addEventListener('click', naviguerSuivant);
+    });
+    arrBoutonsPrecedents.forEach((element) => {
+        element.addEventListener('click', naviguerPrecedent);
+    });
+    refChampEmail.addEventListener('change', faireValiderEmail);
+    // refFormulaire.addEventListener('submit', verifierSubmit);
 }
 function changerTypeDon() {
     if (this.id == refBtnDonMensuel?.id) {
-        document.querySelector('.mensuel')?.classList.remove('cacher');
-        document.querySelector('.unique')?.classList.add('cacher');
+        document.querySelector('#mensuel')?.classList.remove('cacher');
+        document.querySelector('#unique')?.classList.add('cacher');
     }
     if (this.id == refBtnDonUnique?.id) {
-        document.querySelector('.unique')?.classList.remove('cacher');
-        document.querySelector('.mensuel')?.classList.add('cacher');
+        document.querySelector('#unique')?.classList.remove('cacher');
+        document.querySelector('#mensuel')?.classList.add('cacher');
     }
 }
 function naviguerSuivant() {
@@ -93,11 +95,76 @@ function validerChamp(champ) {
     }
     return valide;
 }
+function faireValiderEmail(event) {
+    const monInput = event.currentTarget;
+    validerEmail(monInput);
+}
+function validerEmail(champ) {
+    let valide = false;
+    const id = champ.id;
+    const idMessageErreur = "erreur-" + id;
+    const erreurElement = document.getElementById(idMessageErreur);
+    const leEmail = champ.value;
+    const regEx = new RegExp(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/);
+    const tldSuspicieux = [
+        '.ru',
+        '.cn',
+        '.click',
+        '.party'
+    ];
+    const erreursCommunes = {
+        'hotnail': 'hotmail',
+        'gnail': 'gmail',
+        'yahooo': 'yahoo'
+    };
+    // Vérifie chaque type d'erreur de validation
+    if (champ.validity.valueMissing && messagesErreur[id].vide) {
+        valide = false;
+        erreurElement.innerText = messagesErreur[id].vide;
+    }
+    else if (!regEx.test(leEmail) && messagesErreur[id].pattern) {
+        valide = false;
+        erreurElement.innerText = messagesErreur[id].pattern;
+    }
+    else if (champ.validity.typeMismatch && messagesErreur[id].type) {
+        // Type de données incorrect (email, url, tel, etc.)
+        valide = false;
+        erreurElement.innerText = messagesErreur[id].type;
+    }
+    else if (tldSuspicieux.some((tld => {
+        const contientSuspect = leEmail.toLowerCase().endsWith(tld);
+        return contientSuspect;
+    }))) {
+        valide = false;
+        erreurElement.innerText = messagesErreur[id].tldSuspicieux;
+    }
+    else {
+        const valeursCles = Object.keys(erreursCommunes);
+        const erreurCle = valeursCles.find((domaine) => {
+            return leEmail.toLowerCase().includes(domaine);
+        });
+        if (erreurCle) {
+            const domaineCorrect = erreursCommunes[erreurCle];
+            const monMessage = messagesErreur[id].erreursCommunes.replace('{domaine}', domaineCorrect);
+            valide = false;
+            erreurElement.innerText = monMessage;
+        }
+        else {
+            valide = true;
+            erreurElement.innerText = "";
+        }
+    }
+    return valide;
+}
 function validerEtape(etape) {
     let etapeValide = false;
     switch (etape) {
         case 0:
-            etapeValide = true;
+            etapeValide = validerBtnsMontantDon();
+            if (etapeValide) {
+                const refSpan = document.getElementById('erreur-btnDonUnique');
+                refSpan.innerText = "";
+            }
             break;
         case 1:
             const nomElement = document.getElementById('nom');
@@ -111,7 +178,7 @@ function validerEtape(etape) {
             const nomValide = validerChamp(nomElement);
             const prenomValide = validerChamp(prenomElement);
             const courrielValide = validerChamp(courrielElement);
-            const adresseValide = validerChamp(adresseElement);
+            const adresseValide = validerEmail(adresseElement);
             const villeValide = validerChamp(villeElement);
             // const provinceValide = validerChamp(provinceElement);
             const paysValide = validerChamp(paysElement);
@@ -142,9 +209,23 @@ function validerEtape(etape) {
     }
     return etapeValide;
 }
-function verifierSubmit(e) {
-    if (validerEtape(intEtape) == false) {
-        console.log(validerEtape);
-        e.preventDefault();
-    }
+function validerBtnsMontantDon() {
+    const refBtnsMontantDon = document.querySelectorAll('input[name=montantUnique]');
+    let valide = false;
+    const refSpanErreur = document.getElementById('erreur-btnDonUnique');
+    refBtnsMontantDon.forEach(btn => {
+        if (btn.checked) {
+            valide = true;
+        }
+        else {
+            refSpanErreur.innerText = messagesErreur['btnDonUnique'].vide;
+        }
+    });
+    return valide;
 }
+// function verifierSubmit(e:Event) {
+//     if(validerEtape(intEtape) == false) {
+//         console.log(validerEtape)
+//         e.preventDefault();
+//     }
+// }
