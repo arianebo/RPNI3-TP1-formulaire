@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initialiser();
 });
+// Variables
 let intEtape = 0;
 const arrFieldsets = document.querySelectorAll('fieldset');
 const arrBoutonsSuivants = document.querySelectorAll('.btnSuivant');
@@ -13,37 +14,103 @@ const refBtnDonUnique = document.getElementById('btnUnique');
 const refBtnDonMensuel = document.getElementById('btnMensuel');
 const refFormulaire = document.getElementById('formulaire');
 const refChampEmail = document.getElementById('courriel');
+const refBtnsUnique = document.querySelectorAll('input[name=montantUnique]');
+const refBtnsMensuel = document.querySelectorAll('input[name=montantMensuel]');
+const refBtnUniqueAutre = document.getElementById('uniqueAutre');
+const refBtnMensuelAutre = document.getElementById('mensuelAutre');
+const refBtnPersonnel = document.getElementById('personnel');
+const refBtnEntreprise = document.getElementById('entreprise');
 let messagesErreur = [];
+// Fonctions
 function initialiser() {
+    // Initialisation
     cacherFieldsets();
     etape1?.classList.remove('cacher');
     document.querySelector('#mensuel')?.classList.add('cacher');
+    document.getElementById('uniqueAutreMontant')?.classList.add('cacher');
+    document.querySelector('.entreprise')?.classList.add('cacher');
     refFormulaire.noValidate = true;
     obtenirMessages();
     refBtnDonUnique?.addEventListener('click', changerTypeDon);
     refBtnDonMensuel?.addEventListener('click', changerTypeDon);
+    refBtnPersonnel?.addEventListener('click', changerTypeDon);
+    refBtnEntreprise?.addEventListener('click', changerTypeDon);
+    refBtnsUnique.forEach(btn => {
+        btn.addEventListener('click', afficherChamp);
+    });
+    refBtnsMensuel.forEach(btn => {
+        btn.addEventListener('click', afficherChamp);
+    });
     arrBoutonsSuivants.forEach((element) => {
         element.addEventListener('click', naviguerSuivant);
     });
     arrBoutonsPrecedents.forEach((element) => {
         element.addEventListener('click', naviguerPrecedent);
     });
-    refChampEmail.addEventListener('change', faireValiderEmail);
-    // refFormulaire.addEventListener('submit', verifierSubmit);
+    refChampEmail.addEventListener('blur', faireValiderEmail);
+    refFormulaire.addEventListener('submit', verifierSubmit);
 }
 function changerTypeDon() {
+    // Affiche ou cache des éléments selon quel bouton a été sélectionné
     if (this.id == refBtnDonMensuel?.id) {
         document.querySelector('#mensuel')?.classList.remove('cacher');
         document.querySelector('#unique')?.classList.add('cacher');
+        document.getElementById('mensuelAutreMontant')?.classList.add('cacher');
+        document.getElementById('divUnique')?.classList.remove('btnSelectionne');
+        document.getElementById('divMensuel')?.classList.add('btnSelectionne');
+        const refListeBtns = document.querySelectorAll('input[name=montantUnique]');
+        refListeBtns.forEach(btn => {
+            btn.checked = false;
+        });
     }
     if (this.id == refBtnDonUnique?.id) {
         document.querySelector('#unique')?.classList.remove('cacher');
         document.querySelector('#mensuel')?.classList.add('cacher');
+        document.getElementById('uniqueAutreMontant')?.classList.add('cacher');
+        document.getElementById('divUnique')?.classList.add('btnSelectionne');
+        document.getElementById('divMensuel')?.classList.remove('btnSelectionne');
+        const refListeBtns = document.querySelectorAll('input[name=montantMensuel]');
+        refListeBtns.forEach(btn => {
+            btn.checked = false;
+        });
+    }
+    if (this.id == refBtnPersonnel?.id) {
+        document.querySelector('.entreprise')?.classList.add('cacher');
+        document.querySelector('.personnel')?.classList.remove('cacher');
+        document.getElementById('divPersonnel')?.classList.add('btnSelectionne');
+        document.getElementById('divEntreprise')?.classList.remove('btnSelectionne');
+        const refChamp = document.getElementById('nomEntreprise');
+        refChamp.value = "";
+    }
+    if (this.id == refBtnEntreprise?.id) {
+        document.querySelector('.entreprise')?.classList.remove('cacher');
+        document.querySelector('.personnel')?.classList.add('cacher');
+        document.getElementById('divPersonnel')?.classList.remove('btnSelectionne');
+        document.getElementById('divEntreprise')?.classList.add('btnSelectionne');
+    }
+}
+function afficherChamp() {
+    const refChampUnique = document.getElementById('uniqueAutreMontant');
+    const refChampMensuel = document.getElementById('mensuelAutreMontant');
+    if (this.id == refBtnUniqueAutre?.id) {
+        refChampUnique.classList.remove('cacher');
+    }
+    else if (this.id == refBtnMensuelAutre?.id) {
+        refChampMensuel.classList.remove('cacher');
+    }
+    else {
+        refChampUnique.classList.add('cacher');
+        refChampMensuel.classList.add('cacher');
+        refChampUnique.value = "";
+        refChampMensuel.value = "";
+        const refChampErreur = document.getElementById('erreur-btnsTypeDon');
+        refChampErreur.innerText = "";
     }
 }
 function naviguerSuivant() {
     const etapeValide = validerEtape(intEtape);
-    if (etapeValide) {
+    if (etapeValide && intEtape < 2) {
+        console.log(intEtape);
         intEtape++;
         changerEtape(intEtape);
     }
@@ -156,14 +223,81 @@ function validerEmail(champ) {
     }
     return valide;
 }
+function validerBtnsMontantDon() {
+    // Valide si un bouton radio a été sélectionné
+    const refBtnsMontantDonUnique = document.querySelectorAll('input[name=montantUnique]');
+    const refBtnsMontantDonMensuel = document.querySelectorAll('input[name=montantMensuel]');
+    const refSpanErreur = document.getElementById('erreur-btnsTypeDon');
+    const arrBtnsDonUnique = Array.from(refBtnsMontantDonUnique);
+    const arrBtnsDonMensuel = Array.from(refBtnsMontantDonMensuel);
+    const arrBtnsDon = arrBtnsDonUnique.concat(arrBtnsDonMensuel); //Recherches sur internet pour trouver comment joindre 2 array
+    let valide = false;
+    arrBtnsDon.forEach(btn => {
+        if (btn.checked) {
+            valide = true;
+        }
+        else {
+            refSpanErreur.innerText = messagesErreur['btnsTypeDon'].vide;
+        }
+    });
+    return valide;
+}
+function validerChampAutre() {
+    // Valide les champs de montant autre
+    let refBtnSelectionneUnique = document.querySelector('input[name=montantUnique]:checked');
+    let refBtnSelectionneMensuel = document.querySelector('input[name=montantMensuel]:checked');
+    const refMessageErreur = document.getElementById('erreur-btnsTypeDon');
+    let valide = false;
+    if (refBtnSelectionneUnique != null && refBtnSelectionneUnique.id == 'uniqueAutre') {
+        const refChamp = document.getElementById('uniqueAutreMontant');
+        if (refChamp.value != "") {
+            if (refChamp.value == '0') {
+                refMessageErreur.innerText = messagesErreur['autreMontant'].pattern;
+            }
+            else {
+                valide = true;
+                refMessageErreur.innerText = "";
+            }
+        }
+        else {
+            valide = false;
+            refMessageErreur.innerText = messagesErreur['autreMontant'].vide;
+        }
+    }
+    else if (refBtnSelectionneMensuel != null && refBtnSelectionneMensuel.id == 'mensuelAutre') {
+        const refChamp = document.getElementById('mensuelAutreMontant');
+        if (refChamp.value != "") {
+            if (refChamp.value == '0') {
+                refMessageErreur.innerText = messagesErreur['autreMontant'].pattern;
+            }
+            else {
+                valide = true;
+                refMessageErreur.innerText = "";
+            }
+        }
+        else {
+            valide = false;
+            refMessageErreur.innerText = messagesErreur['autreMontant'].vide;
+        }
+    }
+    return valide;
+}
 function validerEtape(etape) {
+    // Valide chaque étape selon le numéro d'étape
     let etapeValide = false;
     switch (etape) {
         case 0:
-            etapeValide = validerBtnsMontantDon();
-            if (etapeValide) {
-                const refSpan = document.getElementById('erreur-btnDonUnique');
+            if (validerBtnsMontantDon()) {
+                const refSpan = document.getElementById('erreur-btnsTypeDon');
                 refSpan.innerText = "";
+                let refBtnSelectionneUnique = document.querySelector('input[name=montantUnique]:checked');
+                let refBtnSelectionneMensuel = document.querySelector('input[name=montantMensuel]:checked');
+                if (refBtnSelectionneUnique != null && refBtnSelectionneUnique.id == 'uniqueAutre' || refBtnSelectionneMensuel != null && refBtnSelectionneMensuel.id == 'mensuelAutre') {
+                    etapeValide = validerChampAutre();
+                }
+                else {
+                    etapeValide = true;
+                }
             }
             break;
         case 1:
@@ -209,23 +343,9 @@ function validerEtape(etape) {
     }
     return etapeValide;
 }
-function validerBtnsMontantDon() {
-    const refBtnsMontantDon = document.querySelectorAll('input[name=montantUnique]');
-    let valide = false;
-    const refSpanErreur = document.getElementById('erreur-btnDonUnique');
-    refBtnsMontantDon.forEach(btn => {
-        if (btn.checked) {
-            valide = true;
-        }
-        else {
-            refSpanErreur.innerText = messagesErreur['btnDonUnique'].vide;
-        }
-    });
-    return valide;
+function verifierSubmit(e) {
+    // Empêcher le submit du formulaire s'il y a des erreurs
+    if (validerEtape(intEtape) == false) {
+        e.preventDefault();
+    }
 }
-// function verifierSubmit(e:Event) {
-//     if(validerEtape(intEtape) == false) {
-//         console.log(validerEtape)
-//         e.preventDefault();
-//     }
-// }

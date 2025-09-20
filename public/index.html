@@ -3,152 +3,171 @@
 
 <head>
     <meta charset="utf-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/styles.css">
     <script defer src="js/scripts.js"></script>
 </head>
 
 
 <body>
-    <header>
-        <img class="logo" src="" alt="">
+    <header class="header">
+        <img class="header__logo" src="images/Logo.svg" alt="Logo de 4Ocean">
     </header>
 
     <main>
+
         <h1>Formulaire de don</h1>
-        <nav class="navigation" aria-label="Étapes du formulaire de don">
+        <nav class="navigation">
             <ol class="navigation__liste">
-                <li class="navigation__listeItem" aria-current="step">
-                    <a href="#">
-                        <span class="hors-ecran">Étape 1</span>
+                <li>
+                    <!-- La valeur href de l'ancre doit être le ID de la section où le focus sera mis lorsqu'on clique dessus SANS JavaScript -->
+                    <!-- parseInt(element.dataset.etape) -->
+                    <a data-etape="1" class="navigation__item navigation__item--active" aria-current="step"
+                        href="#etape1">
+                        <span class="hors-ecran">Étape 1 de 3</span>
                         Don
                     </a>
                 </li>
-                <li class="navigation__listeItem">
-                    <a href="#">
-                        <span class="hors-ecran">Étape 2</span>
+                <li>
+                    <a class="navigation__item navigation__item--inactive" aria-disabled="true" href="#etape2">
+                        <span class="hors-ecran">Étape 2 de 3</span>
                         Informations
                     </a>
                 </li>
-                <li class="navigation__listeItem">
-                    <a href="#">
-                        <span class="hors-ecran">Étape 3</span>
+                <li>
+                    <a class="navigation__item navigation__item--inactive" aria-disabled="true" href="#etape3">
+                        <span class="hors-ecran">Étape 3 de 3</span>
                         Paiement
                     </a>
                 </li>
             </ol>
         </nav>
-    
+
         <form action="merci.html" method="get" id="formulaire" class="form">
             <fieldset id="etape1" class="form__section">
                 <legend class="section__titre">Don</legend>
                 <section class="section__sousSection--typeDeDon">
                     <h2 class="sousSection__titre">Type de don</h2>
                     <div class="sousSection__div">
-                        <div class="sousSection__div--items">
-                            <input class="sousSection__radio--typeDon" type="radio" id="btnUnique" name="type" value="unique" checked>
+                        <div class="sousSection__div--items btnSelectionne" id="divUnique">
+                            <input class="sousSection__radio--typeDon" type="radio" id="btnUnique" name="type"
+                                value="unique" checked>
                             <label class="sousSection__radioLabel--typeDon" for="btnUnique">Don unique</label>
                         </div>
-                        <div class="sousSection__div--items">
-                            <input class="sousSection__radio--typeDon" type="radio" id="btnMensuel" name="type" value="mensuel">
+                        <div class="sousSection__div--items" id="divMensuel">
+                            <input class="sousSection__radio--typeDon" type="radio" id="btnMensuel" name="type"
+                                value="mensuel">
                             <label class="sousSection__radioLabel--typeDon" for="btnMensuel">Don mensuel</label>
                         </div>
                     </div>
                 </section>
-    
+
                 <div id="unique" class="section__sousSection">
                     <div class="sousSection__montants">
                         <input class="sousSection__radio" type="radio" id="unique25" name="montantUnique" value="25">
-                        <label class="sousSection__radioLabel" for="25">25 $</label>
-                        <span class="sousSection__span">Pour éliminer <b>5 livres</b> de déchets</span>
+                        <label class="sousSection__radioLabel" for="unique25">25 $</label>
+                        <span class="sousSection__span">Pour éliminer <b>5 lbs</b> de déchets</span>
                     </div>
                     <div class="sousSection__montants">
                         <input class="sousSection__radio" type="radio" id="unique50" name="montantUnique" value="50">
-                        <label class="sousSection__radioLabel" for="50">50 $</label>
-                        <span class="sousSection__span">Pour éliminer <b>10 livres</b> de déchets</span>
+                        <label class="sousSection__radioLabel" for="unique50">50 $</label>
+                        <span class="sousSection__span">Pour éliminer <b>10 lbs</b> de déchets</span>
                     </div>
                     <div class="sousSection__montants">
                         <input class="sousSection__radio" type="radio" id="unique100" name="montantUnique" value="100">
-                        <label class="sousSection__radioLabel" for="100">100 $</label>
-                        <span class="sousSection__span">Pour éliminer <b>20 livres</b> de déchets</span>
+                        <label class="sousSection__radioLabel" for="unique100">100 $</label>
+                        <span class="sousSection__span">Pour éliminer <b>20 lbs</b> de déchets</span>
                     </div>
                     <div class="sousSection__montants">
-                        <input class="sousSection__radio" type="radio" id="uniqueAutre" name="montantUnique" value="autre">
-                        <label class="sousSection__radioLabel" for="autre">Autre montant</label>
+                        <input class="sousSection__radio" type="radio" id="uniqueAutre" name="montantUnique"
+                            value="autre">
+                        <label class="sousSection__radioLabel" for="uniqueAutre">Autre montant</label>
                         <input type="number" id="uniqueAutreMontant" placeholder="Entrer le montant">
                     </div>
-    
-                    <span class="messageErreur" id="erreur-btnDonUnique" aria-live="polite"></span>
                 </div>
-    
+
                 <div id="mensuel" class="section__sousSection">
                     <div class="sousSection__montants">
                         <input class="sousSection__radio" type="radio" id="mensuel5" name="montantMensuel" value="5">
-                        <label class="sousSection__radioLabel" for="5">5 $</label>
-                        <span class="sousSection__span">Pour éliminer <b>1 livre</b> de déchets par mois</span>
+                        <label class="sousSection__radioLabel" for="mensuel5">5 $</label>
+                        <span class="sousSection__span">Pour éliminer <b>1 lbs</b> de déchets par mois</span>
                     </div>
                     <div class="sousSection__montants">
                         <input class="sousSection__radio" type="radio" id="mensuel10" name="montantMensuel" value="10">
-                        <label class="sousSection__radioLabel" for="10">10 $</label>
-                        <span class="sousSection__span">Pour éliminer <b>2 livres</b> de déchets par mois</span>
+                        <label class="sousSection__radioLabel" for="mensuel10">10 $</label>
+                        <span class="sousSection__span">Pour éliminer <b>2 lbs</b> de déchets par mois</span>
                     </div>
                     <div class="sousSection__montants">
                         <input class="sousSection__radio" type="radio" id="mensuel20" name="montantMensuel" value="20">
-                        <label class="sousSection__radioLabel" for="20">20 $</label>
-                        <span class="sousSection__span">Pour éliminer <b>4 livres</b> de déchets par mois</span>
+                        <label class="sousSection__radioLabel" for="mensuel20">20 $</label>
+                        <span class="sousSection__span">Pour éliminer <b>4 lbs</b> de déchets par mois</span>
                     </div>
                     <div class="sousSection__montants">
-                        <input class="sousSection__radio" type="radio" id="mensuelAutre" name="montantMensuel" value="autre">
-                        <label class="sousSection__radioLabel" for="autre">Autre montant</label>
+                        <input class="sousSection__radio" type="radio" id="mensuelAutre" name="montantMensuel"
+                            value="autre">
+                        <label class="sousSection__radioLabel" for="mensuelAutre">Autre montant</label>
                         <input type="number" id="mensuelAutreMontant" placeholder="Entrer le montant">
                     </div>
-    
-                    <span class="messageErreur" aria-live="polite"></span>
                 </div>
-    
-                <button type="button" class="btnSuivant">Suivant</button>
+
+                <span class="messageErreur" id="erreur-btnsTypeDon" aria-live="polite"></span>
+                <button type="button" class="btn btnSuivant">Suivant</button>
             </fieldset>
-    
-            <fieldset id="etape2">
-                <legend>Informations</legend>
+
+            <fieldset id="etape2" class="form__section">
+                <legend class="section__titre">Informations</legend>
                 <section>
                     <h2>Ce don est...</h2>
-                    <input type="radio" id="personnel" name="typeDon" value="personnel" checked>
-                    <label for="personnel">Personnel</label>
-                    <input type="radio" id="entreprise" name="typeDon" value="entreprise">
-                    <label for="entreprise">Pour une entreprise</label>
+                    <div class="sousSection__div">
+                        <div class="sousSection__div--items btnSelectionne" id="divPersonnel">
+                            <input class="sousSection__radio--typeDon" type="radio" id="personnel" name="typeDon"
+                                value="personnel" checked>
+                            <label class="sousSection__radioLabel--typeDon" for="personnel">Personnel</label>
+                        </div>
+                        <div class="sousSection__div--items" id="divEntreprise">
+                            <input class="sousSection__radio--typeDon" type="radio" id="entreprise" name="typeDon"
+                                value="entreprise">
+                            <label class="sousSection__radioLabel--typeDon" for="entreprise">Pour une entreprise</label>
+                        </div>
+                    </div>
                 </section>
-    
+
                 <div class="infos">
                     <div class="entreprise">
                         <label for="nomEntreprise">Nom de l'entreprise</label>
-                        <input type="text" id="nomEntreprise" name="nomEntreprise" placeholder="Nom de l'entreprise" pattern="^[a-zA-ZÀ-ÿ]+$" required>
-                        <span class="messageErreur" aria-live="polite"></span>
+                        <input type="text" id="nomEntreprise" name="nomEntreprise" placeholder="Nom de l'entreprise"
+                            pattern="^[a-zA-ZÀ-ÿ]+$" required>
+                        <span class="messageErreur" id="erreur-nomEntreprise" aria-live="polite"></span>
                     </div>
-    
+
                     <label for="nom">Nom</label>
-                    <input type="text" id="nom" name="nom" placeholder="Nom" pattern="^[a-zA-ZÀ-ÿ]+$" autocomplete="given-name" required>
+                    <input type="text" id="nom" name="nom" placeholder="Nom" pattern="^[a-zA-ZÀ-ÿ]+$"
+                        autocomplete="given-name" required>
                     <span class="messageErreur" id="erreur-nom" aria-live="polite"></span>
-    
+
                     <label for="prenom">Prénom</label>
-                    <input type="text" id="prenom" name="prenom" placeholder="Prénom" pattern="^[a-zA-ZÀ-ÿ]+$" autocomplete="family-name" required>
+                    <input type="text" id="prenom" name="prenom" placeholder="Prénom" pattern="^[a-zA-ZÀ-ÿ]+$"
+                        autocomplete="family-name" required>
                     <span class="messageErreur" id="erreur-prenom" aria-live="polite"></span>
-    
+
                     <label for="courriel">Courriel</label>
-                    <input type="email" id="courriel" name="courriel" placeholder="Courriel" pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" autocomplete="email" required>
+                    <input type="email" id="courriel" name="courriel" placeholder="Courriel"
+                        pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" autocomplete="email" required>
                     <span class="messageErreur" id="erreur-courriel" aria-live="polite"></span>
-    
+
                     <section>
                         <h2>Adresse</h2>
                         <label for="adresse">Adresse municipale</label>
-                        <input type="text" id="adresse" name="adresse" placeholder="Adresse municipale" pattern="^[0-9]+[a-zA-ZÀ-ÿ0-9 \-]+$" autocomplete="address-line1" required>
+                        <input type="text" id="adresse" name="adresse" placeholder="Adresse municipale"
+                            pattern="^[0-9]+[a-zA-ZÀ-ÿ0-9 \-]+$" autocomplete="address-line1" required>
                         <span class="messageErreur" id="erreur-adresse" aria-live="polite"></span>
-        
+
                         <label for="ville">Ville</label>
-                        <input type="text" id="ville" name="ville" placeholder="Ville" pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$" required>
+                        <input type="text" id="ville" name="ville" placeholder="Ville" pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$"
+                            required>
                         <span class="messageErreur" id="erreur-ville" aria-live="polite"></span>
-                        
-                        <label for="provinces">Province</label>
+
+                        <label for="champProvinces">Province</label>
                         <input id="champProvinces" list="provinces" placeholder="Province" required>
                         <datalist id="provinces">
                             <option value="Alberta">
@@ -167,43 +186,48 @@
                         </datalist>
                         <span class="messageErreur" id="erreur-province" aria-live="polite"></span>
                     </section>
-    
+
                     <label for="pays">Pays</label>
-                    <input type="text" id="pays" name="pays" placeholder="Pays" pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$" autocomplete="country-name" required>
+                    <input type="text" id="pays" name="pays" placeholder="Pays" pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$"
+                        autocomplete="country-name" required>
                     <span class="messageErreur" id="erreur-pays" aria-live="polite"></span>
-    
+
                     <label for="codePostal">Code postal</label>
-                    <input type="text" id="codePostal" name="codePostal" placeholder="Code postal" pattern="^[a-zA-Z][0-9][a-zA-Z] [0-9][a-zA-Z][0-9]$" autocomplete="postal-code" required>
+                    <input type="text" id="codePostal" name="codePostal" placeholder="Code postal"
+                        pattern="^[a-zA-Z][0-9][a-zA-Z] [0-9][a-zA-Z][0-9]$" autocomplete="postal-code" required>
                     <span class="messageErreur" id="erreur-codePostal" aria-live="polite"></span>
                 </div>
-    
-                <button type="button" class="btnPrecedent">Précédent</button>
-                <button type="button" class="btnSuivant">Suivant</button>
+
+                <button type="button" class="btn btnPrecedent">Précédent</button>
+                <button type="button" class="btn btnSuivant">Suivant</button>
             </fieldset>
-    
-            <fieldset id="etape3">
-                <legend>Paiement</legend>
+
+            <fieldset id="etape3" class="form__section">
+                <legend class="section__titre">Paiement</legend>
                 <label for="titulaire">Nom du titulaire de la carte</label>
                 <input type="text" name="titulaire" id="titulaire" placeholder="Nom" autocomplete="cc-name" required>
-                <span class="messageErreur" aria-live="polite"></span>
-    
+                <span class="messageErreur" id="erreur-titulaire" aria-live="polite"></span>
+
                 <label for="carte">Numéro de carte</label>
-                <input type="password" name="carte" id="carte" placeholder="Numéro de carte" inputmode="numeric" maxlength="16" pattern="^[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}$" autocomplete="cc-number" required>
-                <span class="messageErreur" aria-live="polite"></span>
-    
+                <input type="password" name="carte" id="carte" placeholder="Numéro de carte" inputmode="numeric"
+                    maxlength="16" pattern="^[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}$" autocomplete="cc-number"
+                    required>
+                <span class="messageErreur" id="erreur-carte" aria-live="polite"></span>
+
                 <label for="expiration">Expiration</label>
-                <input type="month" name="expiration" id="expiration" placeholder="MM/AA" autocomplete="cc-exp" required>
-                <span class="messageErreur" aria-live="polite"></span>
-    
+                <input type="month" name="expiration" id="expiration" placeholder="MM/AA" autocomplete="cc-exp"
+                    required>
+                <span class="messageErreur" id="erreur-expiration" aria-live="polite"></span>
+
                 <label for="cvc">CVC</label>
                 <input type="text" name="cvc" id="cvc" placeholder="CVC" maxlength="4" autocomplete="cc-csc" required>
-                <span class="messageErreur" aria-live="polite"></span>
-    
-                <button type="button" class="btnPrecedent">Précédent</button>
-                <input type="submit" class="btnSuivant" value="Payer un don de X $">
-                <input type="submit" class="btnSuivant" value="Payer un don de X $ par mois">
+                <span class="messageErreur" id="erreur-cvc" aria-live="polite"></span>
+
+                <button type="button" class="btn btnPrecedent">Précédent</button>
+                <input type="submit" class="btn btnSuivant" value="Payer un don de X $">
+                <!-- <input type="submit" class="btn btnSuivant" value="Payer un don de X $ par mois"> -->
             </fieldset>
-    
+
         </form>
     </main>
 

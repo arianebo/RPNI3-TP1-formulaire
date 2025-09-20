@@ -54,7 +54,11 @@
         "vide": "Veuillez entrer un CVC.",
         "pattern": "Le CVC doit contenir 3 ou 4 chiffres."
     },
-    "btnDonUnique": {
+    "btnsTypeDon": {
         "vide": "Veuillez sélectionner une option."
+    },
+    "autreMontant": {
+        "vide": "Veuillez entrer un montant.",
+        "pattern": "Veuillez entrer un montant supérieur à 0."
     }
 }
