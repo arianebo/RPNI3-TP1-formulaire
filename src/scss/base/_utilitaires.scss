@@ -7,3 +7,7 @@
 .messageErreur{
     color: variables.$erreur;
 }
+
+.erreurChamp {
+    border: 2px solid variables.$erreur;
+}

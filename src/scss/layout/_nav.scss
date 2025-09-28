@@ -2,15 +2,26 @@
 
 .navigation {
     &__liste {
+        padding: 0;
         display: flex;
         flex-direction: row;
+        list-style: none;
+        justify-content: space-between;
+        align-items: center;
+
+        // & > li {
+        //     margin: 0;
+        //     padding: 0;
+        //     background-color: lightpink;
+        //     font-size: 0;
+        // }
     }
 
     &__item {
         color: black;
         text-decoration: underline; /* L'ancre est soulignée par défaut */
         cursor: pointer; /* C'est la valeur par défaut */
-        margin-right: 30px;
+        display: block;
     }
 
     &__item--inactive {
@@ -22,6 +33,11 @@
 
     &__item--active {
         color: variables.$bleuMoyen;
+    }
+
+    &__ligne {
+        width: 100%;
+        border-top: 3px solid black;
     }
 }
 

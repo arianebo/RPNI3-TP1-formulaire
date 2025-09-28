@@ -8,6 +8,12 @@
     }
 }
 
+.section__sousSection {
+    &--typeDeDon, &--don {
+        padding-bottom: 15px;
+    }
+}
+
 .sousSection {
     &__div {
         display: flex;
@@ -43,6 +49,22 @@
 
     &__span {
         display: inline-block;
+    }
+
+    &__label {
+        display: block;
+        margin: 5px 0;
+    }
+
+    &__champ {
+        width: 97%;
+        padding: 5px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    &__titre {
+        margin-top: 25px;
     }
 }
 

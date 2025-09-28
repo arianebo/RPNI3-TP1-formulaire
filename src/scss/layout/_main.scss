@@ -12,12 +12,38 @@
 }
 
 main {
-    width: 50%;
     margin: 0 auto;
-    // padding: 0 20px;
-    // background-color: lightblue;
+    width: 90%;
+    @media (min-width: 500px) {
+        width: 70%;
+    }
+    @media (min-width: 700px) {
+        width: 60%;
+    }
+    @media(min-width: 1000px) {
+        width: 40%;
+    }
 }
 
 .form__section {
     border: none;
+}
+
+.divBtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+footer{
+    background-color: variables.$bleuFonce;
+    
+    & > p {
+        padding: 30px;
+        margin: 20px 0 0 0;
+        color: white;
+        text-align: center;
+        font-size: 14px;
+    }
 }

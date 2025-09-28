@@ -37,7 +37,7 @@
     },
     "codePostal": {
         "vide": "Veuillez entrer un code postal.",
-        "pattern": "Entrez un code postal valide"
+        "pattern": "Entrez un code postal valide, sous le format XXX XXX."
     },
     "titulaire": {
         "vide": "Veuillez entrer un nom de titulaire de carte."
@@ -60,5 +60,9 @@
     "autreMontant": {
         "vide": "Veuillez entrer un montant.",
         "pattern": "Veuillez entrer un montant supérieur à 0."
+    },
+    "nomEntreprise": {
+        "vide": "Veuillez entrer le nom d'entreprise.",
+        "pattern": "Veuillez entrer un nom d'entreprise valide."
     }
 }

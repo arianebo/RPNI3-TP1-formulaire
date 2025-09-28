@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulaire de don</title>
     <link rel="stylesheet" href="css/styles.css">
     <script defer src="js/scripts.js"></script>
 </head>
@@ -17,33 +18,37 @@
     <main>
 
         <h1>Formulaire de don</h1>
+        <!-- Navigation -->
         <nav class="navigation">
             <ol class="navigation__liste">
                 <li>
-                    <!-- La valeur href de l'ancre doit être le ID de la section où le focus sera mis lorsqu'on clique dessus SANS JavaScript -->
-                    <!-- parseInt(element.dataset.etape) -->
-                    <a data-etape="1" class="navigation__item navigation__item--active" aria-current="step"
-                        href="#etape1">
-                        <span class="hors-ecran">Étape 1 de 3</span>
-                        Don
+                    <a id="navLien1" data-etape="1" class="navigation__item navigation__item--active" aria-current="step" href="#etape1">
+                        <img id="navLien1--img" src="images/icone-tortue.svg" alt="">
+                        <span class="hors-ecran">Étape 1 de 3, Don</span>
                     </a>
                 </li>
+                <li class="navigation__ligne"></li>
                 <li>
-                    <a class="navigation__item navigation__item--inactive" aria-disabled="true" href="#etape2">
-                        <span class="hors-ecran">Étape 2 de 3</span>
-                        Informations
+                    <a id="navLien2" data-etape="2" class="navigation__item navigation__item--inactive" aria-disabled="true" href="#etape2">
+                        <!-- <svg></svg> -->
+                        <img id="navLien2--img" src="images/icone-ligne.svg" alt="">
+                        <span class="hors-ecran">Étape 2 de 3, Information</span>
                     </a>
                 </li>
+                <li class="navigation__ligne"></li>
                 <li>
-                    <a class="navigation__item navigation__item--inactive" aria-disabled="true" href="#etape3">
-                        <span class="hors-ecran">Étape 3 de 3</span>
-                        Paiement
+                    <a id="navLien3" data-etape="3" class="navigation__item navigation__item--inactive" aria-disabled="true" href="#etape3">
+                        <img id="navLien3--img" src="images/icone-ligne.svg" alt="">
+                        <span class="hors-ecran">Étape 3 de 3, Paiement</span>
                     </a>
                 </li>
             </ol>
         </nav>
 
+        <!-- Formulaire -->
         <form action="merci.html" method="get" id="formulaire" class="form">
+
+            <!-- Section don 1/3 -->
             <fieldset id="etape1" class="form__section">
                 <legend class="section__titre">Don</legend>
                 <section class="section__sousSection--typeDeDon">
@@ -62,7 +67,7 @@
                     </div>
                 </section>
 
-                <div id="unique" class="section__sousSection">
+                <section id="unique" class="section__sousSection">
                     <div class="sousSection__montants">
                         <input class="sousSection__radio" type="radio" id="unique25" name="montantUnique" value="25">
                         <label class="sousSection__radioLabel" for="unique25">25 $</label>
@@ -84,9 +89,9 @@
                         <label class="sousSection__radioLabel" for="uniqueAutre">Autre montant</label>
                         <input type="number" id="uniqueAutreMontant" placeholder="Entrer le montant">
                     </div>
-                </div>
+                </section>
 
-                <div id="mensuel" class="section__sousSection">
+                <section id="mensuel" class="section__sousSection">
                     <div class="sousSection__montants">
                         <input class="sousSection__radio" type="radio" id="mensuel5" name="montantMensuel" value="5">
                         <label class="sousSection__radioLabel" for="mensuel5">5 $</label>
@@ -108,16 +113,17 @@
                         <label class="sousSection__radioLabel" for="mensuelAutre">Autre montant</label>
                         <input type="number" id="mensuelAutreMontant" placeholder="Entrer le montant">
                     </div>
-                </div>
+                </section>
 
-                <span class="messageErreur" id="erreur-btnsTypeDon" aria-live="polite"></span>
-                <button type="button" class="btn btnSuivant">Suivant</button>
+                <img class="cacher" id="erreur-btnsTypeDon--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-btnsTypeDon" aria-live="polite"></span>
+                <button type="button" class="btn btnSuivant divBtns">Suivant</button>
             </fieldset>
 
+            <!-- Section informations 2/3 -->
             <fieldset id="etape2" class="form__section">
                 <legend class="section__titre">Informations</legend>
-                <section>
-                    <h2>Ce don est...</h2>
+                <section class="section__sousSection--don">
+                    <h2 class="sousSection__titre">Ce don est...</h2>
                     <div class="sousSection__div">
                         <div class="sousSection__div--items btnSelectionne" id="divPersonnel">
                             <input class="sousSection__radio--typeDon" type="radio" id="personnel" name="typeDon"
@@ -132,44 +138,45 @@
                     </div>
                 </section>
 
-                <div class="infos">
-                    <div class="entreprise">
-                        <label for="nomEntreprise">Nom de l'entreprise</label>
-                        <input type="text" id="nomEntreprise" name="nomEntreprise" placeholder="Nom de l'entreprise"
-                            pattern="^[a-zA-ZÀ-ÿ]+$" required>
-                        <span class="messageErreur" id="erreur-nomEntreprise" aria-live="polite"></span>
+                <div class="sousSection">
+                    <div class="sousSection--entreprise">
+                        <label class="sousSection__label" for="nomEntreprise">Nom de l'entreprise</label>
+                        <input class="sousSection__champ" type="text" id="nomEntreprise" name="nomEntreprise" placeholder="Nom de l'entreprise"
+                            pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$" required aria-describedby="erreur-nomEntreprise">
+                        <img class="cacher" id="erreur-nomEntreprise--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-nomEntreprise" aria-live="polite"></span>
                     </div>
 
-                    <label for="nom">Nom</label>
-                    <input type="text" id="nom" name="nom" placeholder="Nom" pattern="^[a-zA-ZÀ-ÿ]+$"
-                        autocomplete="given-name" required>
-                    <span class="messageErreur" id="erreur-nom" aria-live="polite"></span>
+                    
+                    <label class="sousSection__label" for="prenom">Prénom</label>
+                    <input class="sousSection__champ" type="text" id="prenom" name="prenom" placeholder="Prénom" pattern="^[a-zA-ZÀ-ÿ]+$"
+                    autocomplete="family-name" required aria-describedby="erreur-prenom">
+                    <img class="cacher" id="erreur-prenom--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-prenom" aria-live="polite"></span>
+                    
+                    <label class="sousSection__label" for="nom">Nom</label>
+                    <input class="sousSection__champ" type="text" id="nom" name="nom" placeholder="Nom" pattern="^[a-zA-ZÀ-ÿ]+$"
+                        autocomplete="given-name" required aria-describedby="erreur-nom">
+                    <img class="cacher" id="erreur-nom--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-nom" aria-live="polite"></span>
 
-                    <label for="prenom">Prénom</label>
-                    <input type="text" id="prenom" name="prenom" placeholder="Prénom" pattern="^[a-zA-ZÀ-ÿ]+$"
-                        autocomplete="family-name" required>
-                    <span class="messageErreur" id="erreur-prenom" aria-live="polite"></span>
-
-                    <label for="courriel">Courriel</label>
-                    <input type="email" id="courriel" name="courriel" placeholder="Courriel"
-                        pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" autocomplete="email" required>
-                    <span class="messageErreur" id="erreur-courriel" aria-live="polite"></span>
+                    <label class="sousSection__label" for="courriel">Courriel</label>
+                    <input class="sousSection__champ" type="email" id="courriel" name="courriel" placeholder="Courriel"
+                        pattern="^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" autocomplete="email" required aria-describedby="erreur-courriel">
+                    <img class="cacher" id="erreur-courriel--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-courriel" aria-live="polite"></span>
 
                     <section>
-                        <h2>Adresse</h2>
-                        <label for="adresse">Adresse municipale</label>
-                        <input type="text" id="adresse" name="adresse" placeholder="Adresse municipale"
-                            pattern="^[0-9]+[a-zA-ZÀ-ÿ0-9 \-]+$" autocomplete="address-line1" required>
-                        <span class="messageErreur" id="erreur-adresse" aria-live="polite"></span>
+                        <h3 class="sousSection__titre">Adresse</h3>
+                        <label class="sousSection__label" for="adresse">Adresse municipale</label>
+                        <input class="sousSection__champ" type="text" id="adresse" name="adresse" placeholder="Adresse municipale"
+                            pattern="^[0-9]+[a-zA-ZÀ-ÿ0-9 \-]+$" autocomplete="address-line1" required aria-describedby="erreur-adresse">
+                        <img class="cacher" id="erreur-adresse--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-adresse" aria-live="polite"></span>
 
-                        <label for="ville">Ville</label>
-                        <input type="text" id="ville" name="ville" placeholder="Ville" pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$"
-                            required>
-                        <span class="messageErreur" id="erreur-ville" aria-live="polite"></span>
+                        <label class="sousSection__label" for="ville">Ville</label>
+                        <input class="sousSection__champ" type="text" id="ville" name="ville" placeholder="Ville" pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$"
+                            required aria-describedby="erreur-ville">
+                        <img class="cacher" id="erreur-ville--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-ville" aria-live="polite"></span>
 
-                        <label for="champProvinces">Province</label>
-                        <input id="champProvinces" list="provinces" placeholder="Province" required>
-                        <datalist id="provinces">
+                        <label class="sousSection__label" for="provinces">Province</label>
+                        <input class="sousSection__champ" id="provinces" list="listeProvinces" placeholder="Province" required aria-describedby="erreur-provinces">
+                        <datalist id="listeProvinces">
                             <option value="Alberta">
                             <option value="Colombie-Britannique">
                             <option value="Île-du-Prince-Édouard">
@@ -184,55 +191,59 @@
                             <option value="Territoires du Nord-Ouest">
                             <option value="Yukon">
                         </datalist>
-                        <span class="messageErreur" id="erreur-province" aria-live="polite"></span>
+                        <img class="cacher" id="erreur-provinces--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-provinces" aria-live="polite"></span>
                     </section>
 
-                    <label for="pays">Pays</label>
-                    <input type="text" id="pays" name="pays" placeholder="Pays" pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$"
-                        autocomplete="country-name" required>
-                    <span class="messageErreur" id="erreur-pays" aria-live="polite"></span>
+                    <label class="sousSection__label" for="pays">Pays</label>
+                    <input class="sousSection__champ" type="text" id="pays" name="pays" placeholder="Pays" pattern="^[a-zA-ZÀ-ÿ0-9 '\-]+$"
+                        autocomplete="country-name" required aria-describedby="erreur-pays">
+                    <img class="cacher" id="erreur-pays--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-pays" aria-live="polite"></span>
 
-                    <label for="codePostal">Code postal</label>
-                    <input type="text" id="codePostal" name="codePostal" placeholder="Code postal"
-                        pattern="^[a-zA-Z][0-9][a-zA-Z] [0-9][a-zA-Z][0-9]$" autocomplete="postal-code" required>
-                    <span class="messageErreur" id="erreur-codePostal" aria-live="polite"></span>
+                    <label class="sousSection__label" for="codePostal">Code postal</label>
+                    <input class="sousSection__champ" type="text" id="codePostal" name="codePostal" placeholder="XXX XXX"
+                        pattern="^[a-zA-Z][0-9][a-zA-Z] [0-9][a-zA-Z][0-9]$" autocomplete="postal-code" required aria-describedby="erreur-codePostal">
+                    <img class="cacher" id="erreur-codePostal--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-codePostal" aria-live="polite"></span>
                 </div>
 
-                <button type="button" class="btn btnPrecedent">Précédent</button>
-                <button type="button" class="btn btnSuivant">Suivant</button>
+                <div class="divBtns">
+                    <button type="button" class="btn btnPrecedent">Précédent</button>
+                    <button type="button" class="btn btnSuivant">Suivant</button>
+                </div>
             </fieldset>
 
+            <!-- Section paiement 3/3 -->
             <fieldset id="etape3" class="form__section">
                 <legend class="section__titre">Paiement</legend>
-                <label for="titulaire">Nom du titulaire de la carte</label>
-                <input type="text" name="titulaire" id="titulaire" placeholder="Nom" autocomplete="cc-name" required>
-                <span class="messageErreur" id="erreur-titulaire" aria-live="polite"></span>
+                <label class="sousSection__label" for="titulaire">Nom du titulaire de la carte</label>
+                <input class="sousSection__champ" type="text" name="titulaire" id="titulaire" placeholder="Nom" autocomplete="cc-name" required aria-describedby="erreur-titulaire">
+                <img class="cacher" id="erreur-titulaire--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-titulaire" aria-live="polite"></span>
 
-                <label for="carte">Numéro de carte</label>
-                <input type="password" name="carte" id="carte" placeholder="Numéro de carte" inputmode="numeric"
+                <label class="sousSection__label" for="carte">Numéro de carte</label>
+                <input class="sousSection__champ" type="text" name="carte" id="carte" placeholder="Numéro de carte" inputmode="numeric"
                     maxlength="16" pattern="^[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}[ ]?[0-9]{4}$" autocomplete="cc-number"
-                    required>
-                <span class="messageErreur" id="erreur-carte" aria-live="polite"></span>
+                    required aria-describedby="erreur-carte">
+                <img class="cacher" id="erreur-carte--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-carte" aria-live="polite"></span>
 
-                <label for="expiration">Expiration</label>
-                <input type="month" name="expiration" id="expiration" placeholder="MM/AA" autocomplete="cc-exp"
-                    required>
-                <span class="messageErreur" id="erreur-expiration" aria-live="polite"></span>
+                <label class="sousSection__label" for="expiration">Expiration</label>
+                <input class="sousSection__champ" type="month" name="expiration" id="expiration" autocomplete="cc-exp"
+                    required aria-describedby="erreur-expiration">
+                <img class="cacher" id="erreur-expiration--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-expiration" aria-live="polite"></span>
 
-                <label for="cvc">CVC</label>
-                <input type="text" name="cvc" id="cvc" placeholder="CVC" maxlength="4" autocomplete="cc-csc" required>
-                <span class="messageErreur" id="erreur-cvc" aria-live="polite"></span>
+                <label class="sousSection__label" for="cvc">CVC</label>
+                <input class="sousSection__champ" type="text" name="cvc" id="cvc" placeholder="CVC" maxlength="4" autocomplete="cc-csc" required aria-describedby="erreur-cvc">
+                <img class="cacher" id="erreur-cvc--img" src="images/icone-erreur.svg" alt="Icône erreur"><span class="messageErreur" id="erreur-cvc" aria-live="polite"></span>
 
-                <button type="button" class="btn btnPrecedent">Précédent</button>
-                <input type="submit" class="btn btnSuivant" value="Payer un don de X $">
-                <!-- <input type="submit" class="btn btnSuivant" value="Payer un don de X $ par mois"> -->
+                <div class="divBtns">
+                    <button type="button" class="btn btnPrecedent">Précédent</button>
+                    <input id="btnSubmit" type="submit" class="btn btnSuivant" value="Payer un don de X $">
+                </div>
             </fieldset>
 
         </form>
     </main>
 
     <footer>
-
+        <p>Cégep de Sainte-Foy, 2025</p>
     </footer>
 </body>
 
