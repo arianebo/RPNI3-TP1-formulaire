@@ -1,13 +1,23 @@
 @use "../utilitaires/variables";
 
+/**
+* @author Ariane Bohémier
+*/
+
+// Styles pour cacher un élément
 .cacher{
     display: none;
 }
 
+// Styles pour les erreur
 .messageErreur{
     color: variables.$erreur;
 }
 
 .erreurChamp {
     border: 2px solid variables.$erreur;
+}
+
+.messageErreur--icone {
+    margin-right: 5px;
 }

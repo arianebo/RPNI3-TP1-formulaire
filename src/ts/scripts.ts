@@ -23,12 +23,13 @@ const refBtnPersonnel = document.getElementById('personnel');
 const refBtnEntreprise = document.getElementById('entreprise');
 const refNavLien1 = document.getElementById('navLien1') as HTMLElement;
 const refNavLien2 = document.getElementById('navLien2') as HTMLElement;
+const refNavLien3 = document.getElementById('navLien3') as HTMLElement;
 let messagesErreur: any = [];
 
 // Fonctions
 
+// Initialisation
 function initialiser(): void {
-    // Initialisation
     cacherFieldsets();
     etape1?.classList.remove('cacher');
     document.querySelector('#mensuel')?.classList.add('cacher');
@@ -56,82 +57,16 @@ function initialiser(): void {
     });
 
     refChampEmail.addEventListener('blur', faireValiderEmail);
-    refFormulaire.addEventListener('submit', verifierSubmit);
 
     refNavLien1.addEventListener('click', naviguerPrecedent);
     refNavLien2.addEventListener('click', naviguerPrecedent);
+    refNavLien3.addEventListener('click', naviguerPrecedent);
 }
 
-function changerTypeDon(): void {
-    // Affiche ou cache des éléments selon quel bouton a été sélectionné
-    const refSpanErreur = document.getElementById('erreur-btnsTypeDon') as HTMLElement;
-    const refImgErreur = document.getElementById('erreur-btnsTypeDon--img') as HTMLImageElement;
-
-    if (this.id == refBtnDonMensuel?.id) {
-        document.querySelector('#mensuel')?.classList.remove('cacher');
-        document.querySelector('#unique')?.classList.add('cacher');
-        document.getElementById('mensuelAutreMontant')?.classList.add('cacher');
-        document.getElementById('divUnique')?.classList.remove('btnSelectionne');
-        document.getElementById('divMensuel')?.classList.add('btnSelectionne');
-        const refListeBtns = document.querySelectorAll('input[name=montantUnique]') as NodeListOf<HTMLInputElement>;
-        refListeBtns.forEach(btn => {
-            btn.checked = false;
-        });
-    }
-    if (this.id == refBtnDonUnique?.id) {
-        document.querySelector('#unique')?.classList.remove('cacher');
-        document.querySelector('#mensuel')?.classList.add('cacher');
-        document.getElementById('uniqueAutreMontant')?.classList.add('cacher');
-        document.getElementById('divUnique')?.classList.add('btnSelectionne');
-        document.getElementById('divMensuel')?.classList.remove('btnSelectionne');
-        const refListeBtns = document.querySelectorAll('input[name=montantMensuel]') as NodeListOf<HTMLInputElement>;
-        refListeBtns.forEach(btn => {
-            btn.checked = false;
-        });
-    }
-
-    if (this.id == refBtnPersonnel?.id) {
-        document.querySelector('.sousSection--entreprise')?.classList.add('cacher');
-        document.querySelector('.personnel')?.classList.remove('cacher');
-        document.getElementById('divPersonnel')?.classList.add('btnSelectionne');
-        document.getElementById('divEntreprise')?.classList.remove('btnSelectionne');
-        const refChamp = document.getElementById('nomEntreprise') as HTMLInputElement;
-        refChamp.value = "";
-    }
-    if (this.id == refBtnEntreprise?.id) {
-        document.querySelector('.sousSection--entreprise')?.classList.remove('cacher');
-        document.querySelector('.personnel')?.classList.add('cacher');
-        document.getElementById('divPersonnel')?.classList.remove('btnSelectionne');
-        document.getElementById('divEntreprise')?.classList.add('btnSelectionne');
-    }
-
-    refSpanErreur.innerText = '';
-    refImgErreur.classList.add('cacher');
-}
-
-function afficherChamp(): void {
-    const refChampUnique = document.getElementById('uniqueAutreMontant') as HTMLInputElement;
-    const refChampMensuel = document.getElementById('mensuelAutreMontant') as HTMLInputElement;
-    const refImgErreur = document.getElementById('erreur-btnsTypeDon--img') as HTMLImageElement;
-
-    if (this.id == refBtnUniqueAutre?.id) {
-        refChampUnique.classList.remove('cacher');
-    } else if (this.id == refBtnMensuelAutre?.id) {
-        refChampMensuel.classList.remove('cacher');
-    } else {
-        refChampUnique.classList.add('cacher');
-        refChampMensuel.classList.add('cacher');
-        refChampUnique.value = "";
-        refChampMensuel.value = "";
-        const refChampErreur = document.getElementById('erreur-btnsTypeDon') as HTMLInputElement;
-        refChampErreur.innerText = "";
-        refImgErreur.classList.add('cacher');
-    }
-}
-
+// Naviguer suivant
 function naviguerSuivant(): void {
     const etapeValide = validerEtape(intEtape);
-    if (etapeValide && intEtape < 2) {
+    if (etapeValide && intEtape < 3) {
         let idEtape = 'navLien' + (intEtape+1);
         let etapeCourante = document.getElementById(idEtape) as HTMLElement;
         let refImg = document.getElementById(idEtape+'--img') as HTMLImageElement;
@@ -141,24 +76,35 @@ function naviguerSuivant(): void {
         intEtape++;
         changerEtape(intEtape);
     }
+    if(intEtape == 3) {
+        afficherInfos();
+    }
 }
 
+// Naviguer précédent
 function naviguerPrecedent(): void {
     if (intEtape != 0) {
         let idEtape = 'navLien' + (intEtape+1);
         let etapeCourante = document.getElementById(idEtape) as HTMLElement;
         let refImg = document.getElementById(idEtape+'--img') as HTMLImageElement;
-        refImg.src = 'images/icone-ligne.svg';
-        etapeCourante.classList.remove('navigation__item--active');
-        etapeCourante.classList.add('navigation__item--inactive');
-        etapeCourante.setAttribute('aria-disabled', 'true');
-        etapeCourante.removeAttribute('aria-current');
+        let strClick = this.id;
+        let idClick = strClick.substring(7);
 
-        intEtape--;
-        changerEtape(intEtape);
+        if(idClick != (intEtape+1)) {
+            console.log(idClick);
+            refImg.src = 'images/icone-ligne.svg';
+            etapeCourante.classList.remove('navigation__item--active');
+            etapeCourante.classList.add('navigation__item--inactive');
+            etapeCourante.setAttribute('aria-disabled', 'true');
+            etapeCourante.removeAttribute('aria-current');
+
+            intEtape--;
+            changerEtape(intEtape);
+        }
     }
 }
 
+// Afficher l'étape courante
 function changerEtape(etape: number): void {
     cacherFieldsets();
     arrFieldsets[etape].classList.remove('cacher');
@@ -168,23 +114,27 @@ function changerEtape(etape: number): void {
     let refImg = document.getElementById(idEtape+'--img') as HTMLImageElement;
     refImg.src = 'images/icone-tortue.svg';
     refImg.classList.remove('cacher');
+    console.log(etapeCourante)
     etapeCourante.setAttribute('aria-current', 'step');
     etapeCourante.classList.add('navigation__item--active');
     etapeCourante.classList.remove('navigation__item--inactive');
     etapeCourante.setAttribute('aria-disabled', 'false');
 }
 
+// Cacher toutes les sections d'étapes
 function cacherFieldsets(): void {
     for (let intCpt = 0; intCpt < arrFieldsets.length; intCpt++) {
         arrFieldsets[intCpt].classList.add('cacher');
     }
 }
 
+// Obtenir le JSON de messages d'erreur
 async function obtenirMessages(): Promise<void> {
     const reponse = await fetch('objJSONMessages.json');
     messagesErreur = await reponse.json();
 }
 
+// Valider les champs
 function validerChamp(champ: HTMLInputElement): boolean {
     let valide = false;
     const id = champ.id;
@@ -192,8 +142,6 @@ function validerChamp(champ: HTMLInputElement): boolean {
     const idImgMessageErreur = idMessageErreur + '--img';
     const erreurElement = document.getElementById(idMessageErreur) as HTMLElement;
     const imgErreurElement = document.getElementById(idImgMessageErreur) as HTMLImageElement;
-
-    // console.log('valider champ', champ.validity, imgErreurElement);
 
     // Vérifie chaque type d'erreur de validation
     if (champ.validity.valueMissing && messagesErreur[id].vide) {
@@ -230,6 +178,7 @@ function faireValiderEmail(event: Event) {
     validerEmail(monInput);
 }
 
+// Valider le champ courriel
 function validerEmail(champ: HTMLInputElement) {
     let valide = false;
     const id = champ.id;
@@ -299,8 +248,81 @@ function validerEmail(champ: HTMLInputElement) {
     return valide;
 }
 
+// Affiche ou cache la section selon quel bouton a été sélectionné (don unique ou mensuel / don personnel ou entreprise)
+function changerTypeDon(): void {
+    const refSpanErreur = document.getElementById('erreur-btnsTypeDon') as HTMLElement;
+    const refImgErreur = document.getElementById('erreur-btnsTypeDon--img') as HTMLImageElement;
+
+    // Si le id du bouton est celui du bouton de don mensuel
+    if (this.id == refBtnDonMensuel?.id) {
+        document.querySelector('#mensuel')?.classList.remove('cacher');
+        document.querySelector('#unique')?.classList.add('cacher');
+        document.getElementById('mensuelAutreMontant')?.classList.add('cacher');
+        document.getElementById('divUnique')?.classList.remove('btnSelectionne');
+        document.getElementById('divMensuel')?.classList.add('btnSelectionne');
+        const refListeBtns = document.querySelectorAll('input[name=montantUnique]') as NodeListOf<HTMLInputElement>;
+        refListeBtns.forEach(btn => {
+            btn.checked = false;
+        });
+    }
+    // Si le id du bouton est celui du bouton de don unique
+    if (this.id == refBtnDonUnique?.id) {
+        document.querySelector('#unique')?.classList.remove('cacher');
+        document.querySelector('#mensuel')?.classList.add('cacher');
+        document.getElementById('uniqueAutreMontant')?.classList.add('cacher');
+        document.getElementById('divUnique')?.classList.add('btnSelectionne');
+        document.getElementById('divMensuel')?.classList.remove('btnSelectionne');
+        const refListeBtns = document.querySelectorAll('input[name=montantMensuel]') as NodeListOf<HTMLInputElement>;
+        refListeBtns.forEach(btn => {
+            btn.checked = false;
+        });
+    }
+
+    // Si le id du bouton est celui du bouton de type de don personnel
+    if (this.id == refBtnPersonnel?.id) {
+        document.querySelector('.sousSection--entreprise')?.classList.add('cacher');
+        document.querySelector('.personnel')?.classList.remove('cacher');
+        document.getElementById('divPersonnel')?.classList.add('btnSelectionne');
+        document.getElementById('divEntreprise')?.classList.remove('btnSelectionne');
+        const refChamp = document.getElementById('nomEntreprise') as HTMLInputElement;
+        refChamp.value = "";
+    }
+
+    // Si le id du bouton est celui du bouton de type de don entreprise
+    if (this.id == refBtnEntreprise?.id) {
+        document.querySelector('.sousSection--entreprise')?.classList.remove('cacher');
+        document.querySelector('.personnel')?.classList.add('cacher');
+        document.getElementById('divPersonnel')?.classList.remove('btnSelectionne');
+        document.getElementById('divEntreprise')?.classList.add('btnSelectionne');
+    }
+
+    refSpanErreur.innerText = '';
+    refImgErreur.classList.add('cacher');
+}
+
+// Afficher les champs selon le id du bouton (champs de don unique ou mensuel)
+function afficherChamp(): void {
+    const refChampUnique = document.getElementById('uniqueAutreMontant') as HTMLInputElement;
+    const refChampMensuel = document.getElementById('mensuelAutreMontant') as HTMLInputElement;
+    const refImgErreur = document.getElementById('erreur-btnsTypeDon--img') as HTMLImageElement;
+
+    if (this.id == refBtnUniqueAutre?.id) {
+        refChampUnique.classList.remove('cacher');
+    } else if (this.id == refBtnMensuelAutre?.id) {
+        refChampMensuel.classList.remove('cacher');
+    } else {
+        refChampUnique.classList.add('cacher');
+        refChampMensuel.classList.add('cacher');
+        refChampUnique.value = "";
+        refChampMensuel.value = "";
+        const refChampErreur = document.getElementById('erreur-btnsTypeDon') as HTMLInputElement;
+        refChampErreur.innerText = "";
+        refImgErreur.classList.add('cacher');
+    }
+}
+
+// Valide si un bouton radio a été sélectionné (don unique ou mensuel)
 function validerBtnsMontantDon(): boolean {
-    // Valide si un bouton radio a été sélectionné
     const refBtnsMontantDonUnique = document.querySelectorAll('input[name=montantUnique]') as NodeListOf<HTMLInputElement>;
     const refBtnsMontantDonMensuel = document.querySelectorAll('input[name=montantMensuel]') as NodeListOf<HTMLInputElement>;
     const refSpanErreur = document.getElementById('erreur-btnsTypeDon') as HTMLElement;
@@ -323,8 +345,8 @@ function validerBtnsMontantDon(): boolean {
     return valide;
 }
 
+// Valide les champs de montant autre (don unique ou mensuel)
 function validerChampAutre(): boolean {
-    // Valide les champs de montant autre
     let refBtnSelectionneUnique = document.querySelector('input[name=montantUnique]:checked') as HTMLInputElement;
     let refBtnSelectionneMensuel = document.querySelector('input[name=montantMensuel]:checked') as HTMLInputElement;
     const refMessageErreur = document.getElementById('erreur-btnsTypeDon') as HTMLInputElement;
@@ -376,11 +398,14 @@ function validerChampAutre(): boolean {
     return valide;
 }
 
+// Affiche le montant de don sélectionné sur le bouton submit du formulaire
 function afficherMontantDon() {
     const refBtnSubmit = document.getElementById('btnSubmit') as HTMLButtonElement;
     const arrBtnsDonUnique = Array.from(refBtnsUnique);
     const arrBtnsDonMensuel = Array.from(refBtnsMensuel);
     const arrBtnsDon = arrBtnsDonUnique.concat(arrBtnsDonMensuel);
+    const refPMontant = document.getElementById('pMontant') as HTMLElement;
+    const refChampCacheMontant = document.getElementById('champCacheMontant') as HTMLInputElement;
 
     arrBtnsDon.forEach(btn => {
         if(btn.checked) {
@@ -396,19 +421,25 @@ function afficherMontantDon() {
 
             if(btn.name == 'montantUnique') {
                 refBtnSubmit.value = 'Payer un don de ' +montant +' $';
+                refPMontant.innerText = 'Montant : ' +montant +' $';
+                refChampCacheMontant.value = montant;
+
             } else if(btn.name == 'montantMensuel') {
                 refBtnSubmit.value = 'Payer un don de ' +montant +' $ par mois';
+                refPMontant.innerText = 'Montant : ' +montant +' $ par mois';
+                refChampCacheMontant.value = montant;
             }
         }
     });
     
 }
 
+// Valide chaque étape selon le numéro d'étape courante
 function validerEtape(etape: number): boolean {
-    // Valide chaque étape selon le numéro d'étape
     let etapeValide: boolean = false;
 
     switch (etape) {
+        // Valide l'étape 1
         case 0:
             if (validerBtnsMontantDon()) {
                 const refSpan = document.getElementById('erreur-btnsTypeDon') as HTMLElement;
@@ -428,6 +459,7 @@ function validerEtape(etape: number): boolean {
             afficherMontantDon();
             break;
 
+        // Valide l'étape 2
         case 1:
             const nomEntrepriseElement = document.getElementById('nomEntreprise') as HTMLInputElement;
             const nomElement = document.getElementById('nom') as HTMLInputElement;
@@ -462,6 +494,7 @@ function validerEtape(etape: number): boolean {
 
             break;
 
+        // Valide l'étape 3
         case 2:
             const titulaireElement = document.getElementById('titulaire') as HTMLInputElement;
             const carteElement = document.getElementById('carte') as HTMLInputElement;
@@ -484,9 +517,22 @@ function validerEtape(etape: number): boolean {
     return etapeValide;
 }
 
-function verifierSubmit(e: Event) {
-    // Empêcher le submit du formulaire s'il y a des erreurs
-    if (validerEtape(intEtape) == false) {
-        e.preventDefault();
+// Affiche les informations entrées dans le résumé
+function afficherInfos() {
+    const refPNom = document.getElementById('pNom') as HTMLElement;
+    const refPNomEntreprise = document.getElementById('pNomEntreprise') as HTMLElement;
+    const refPCarte = document.getElementById('pCarte') as HTMLElement;
+    const refChampPrenom = document.getElementById('prenom') as HTMLInputElement;
+    const refChampNom = document.getElementById('nom') as HTMLInputElement;
+    const refChampEntreprise = document.getElementById('nomEntreprise') as HTMLInputElement;
+    const refChampCarte = document.getElementById('carte') as HTMLInputElement;
+    let strCarte = refChampCarte.value;
+    let strCarteCourte = strCarte.substring(12, 16);
+
+    refPNomEntreprise.innerText = '';
+    if(refChampEntreprise.value != '') {
+        refPNomEntreprise.innerText = "Nom de l'entreprise : " + refChampEntreprise.value;
     }
+    refPNom.innerText = 'Nom du donateur : ' + refChampPrenom.value + ' ' + refChampNom.value;
+    refPCarte.innerText = "Numéro de carte : **** " +strCarteCourte;
 }

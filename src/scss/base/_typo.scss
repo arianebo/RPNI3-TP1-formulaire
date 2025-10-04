@@ -2,7 +2,7 @@
 @use "../utilitaires/variables";
 
 /**
-* @author Prenom Nom courriel
+* @author Ariane Bohémier
 */
 
 /**** Typographie responsive ****/
@@ -36,7 +36,6 @@ h1,
   margin: 0;
   padding: 15px 0;
   font-weight: bold;
-  // text-transform: uppercase;
 
   @media (min-width: 700px) {
     font-size: 5rem;

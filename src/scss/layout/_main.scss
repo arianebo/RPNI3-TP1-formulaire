@@ -1,5 +1,10 @@
 @use "../utilitaires/variables";
 
+/**
+* @author Ariane Bohémier
+*/
+
+// Styles généraux du main
 .header{
     background-color: variables.$bleuFonce;
     display: flex;
@@ -25,17 +30,6 @@ main {
     }
 }
 
-.form__section {
-    border: none;
-}
-
-.divBtns {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin-top: 30px;
-}
-
 footer{
     background-color: variables.$bleuFonce;
     
@@ -46,4 +40,16 @@ footer{
         text-align: center;
         font-size: 14px;
     }
+}
+
+// Styles du formulaire
+.form__section {
+    border: none;
+}
+
+.divBtns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 30px 0;
 }
