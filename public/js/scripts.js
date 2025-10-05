@@ -80,7 +80,6 @@ function naviguerPrecedent() {
         let strClick = this.id;
         let idClick = strClick.substring(7);
         if (idClick != (intEtape + 1)) {
-            console.log(idClick);
             refImg.src = 'images/icone-ligne.svg';
             etapeCourante.classList.remove('navigation__item--active');
             etapeCourante.classList.add('navigation__item--inactive');
@@ -100,7 +99,6 @@ function changerEtape(etape) {
     let refImg = document.getElementById(idEtape + '--img');
     refImg.src = 'images/icone-tortue.svg';
     refImg.classList.remove('cacher');
-    console.log(etapeCourante);
     etapeCourante.setAttribute('aria-current', 'step');
     etapeCourante.classList.add('navigation__item--active');
     etapeCourante.classList.remove('navigation__item--inactive');
@@ -127,7 +125,6 @@ function validerChamp(champ) {
     const imgErreurElement = document.getElementById(idImgMessageErreur);
     // Vérifie chaque type d'erreur de validation
     if (champ.validity.valueMissing && messagesErreur[id].vide) {
-        console.log('erreur', id);
         valide = false;
         champ.classList.add('erreurChamp');
         imgErreurElement.classList.remove('cacher');
